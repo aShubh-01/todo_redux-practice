@@ -3,34 +3,32 @@ import { createSlice, nanoid } from '@reduxjs/toolkit';
 export const initialState = {
     todos: [{
         id: 1,
-        label: "D1",
+        title: "Do something",
         isCompleted: false
     }]
 }
 
 export const todoSlice = createSlice({
-    name: 'todoSlice',
+    name: 'todo',
     initialState,
     reducers: {
         addTodo: (state, action) => {
             const todo = {
                 id: nanoid(),
-                label: action.payload,
+                title: action.payload,
                 isCompleted: false
             }
             state.todos.push(todo)
         },
 
         completeTodo: (state, action) => {
-            state.todos.forEach((todo) => {
-                if(todo.id === action.id) todo.isCompleted = true;
+            state.todos.filter((todo) => {
+                if (todo.id === action.payload) todo.isCompleted = true
             })
         },
 
         deleteTodo: (state, action) => {
-            state.todos.filter((todo) => {
-                return todo.id !== action.payload
-            })
+            state.todos = state.todos.filter((todo) =>  todo.id !== action.payload)
         }
     }   
 })
