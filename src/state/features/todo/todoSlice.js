@@ -21,6 +21,13 @@ export const todoSlice = createSlice({
             state.todos.push(todo)
         },
 
+        updateTodo: (state, action) => {
+            state.todos.filter((todo) => {
+                if(todo.id === action.payload.id) todo.title = action.payload.title
+            })
+            console.log("Action : ", action);
+        },
+
         completeTodo: (state, action) => {
             state.todos.filter((todo) => {
                 if (todo.id === action.payload) todo.isCompleted = true
@@ -33,6 +40,6 @@ export const todoSlice = createSlice({
     }   
 })
 
-export const {addTodo, completeTodo, deleteTodo} = todoSlice.actions
+export const {addTodo, completeTodo, updateTodo, deleteTodo} = todoSlice.actions
 
 export default todoSlice.reducer;
